@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+        <img id="world.png" usemap="#map" src="images/world.png" width="900" height="450">
+        <map name="map">
+            <area id='area1' shape="poly" coords="950, 265, 980, 250, 1015, 265, 1010, 295, 990, 300, 970, 295" href="html/France.html" title="France">
+        </map>
+        ratio x=<input id="rat_x" type='text'/>
+        ratio y=<input id="rat_y" type='text'/>
+
+    <script>
+        //Mémorisation de la taille initiale de la photo pour calculer le ratio
+        var image_width=$("#photo").width();    
+        var image_height=$("#photo").height();  
+        //Positionnement de zone interactive
+        var areafrance={ "x0":950, "y0":265, "x1":980, "y1":250, "x2":1015, "y2":265, "x3":1010, "y3":295, "x4":990, "y4":300, "x5":970, "y5":295 };
+        $("#areafrance").attr("coords", area1.x0+","+area1.y0+","+area1.x1+","+area1.y1+","+area1.x2+","+area1.y2+","+area1.x3+","+area1.y3+","+area1.x4+","+area1.y4+","+area1.x5+","+area1.y5");
+        
+        //Avec jquery resizable la photo devient redimentionnable
+        $("#photo").resizable( {
+            //Dans l'évènement resize on récupére la nouvelle taille de l'image
+            //à chaque changement et on calcul de ratio horizontal et vertical de redimentionnement
+            // et on l'applique sur les coordonnées de la zone interactive
+            resize: function( event, ui ) {
+                    var rat_x=ui.size.width/image_width;
+                    var rat_y=ui.size.height/image_height;
+                    $("#rat_x").val(rat_x);
+                    $("#rat_y").val(rat_y);
+                    $("#area1").attr("coords", area1.x0*rat_x+","+area1.y0*rat_y+","+area1.x1*rat_x+","+area1.y1*rat_y","+area1.x2-rat_x+","+area1.y2*rat_y+","+area1.x3*rat_x+","+area1.y3*rat_y+","+area1.x4*rat_x+","+area1.y4*rat_y+","+area1.x5*rat_x+","+area1.y5*rat_y"
+                });
+					
+            });
+    </script>
+
+    </body>
+</html>
+
